@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* VARIÁVEIS CSS */
+        /* VARIÁVEIS CSS: Mantém o controle centralizado das cores do tema */
         :root {
             --color-primary: #0F1F3D;
             --color-primary-hover: #1B3A6B;
@@ -55,7 +55,7 @@
         /* CONTEÚDO PRINCIPAL */
         .os-container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
 
-        /* TRILHA (Stepper) */
+        /* TRILHA (Stepper): Navegação guiada pelas categorias */
         .os-stepper { display: flex; justify-content: space-between; background-color: var(--color-surface); padding: 24px; border-radius: var(--border-radius-hard); box-shadow: var(--shadow-card); margin-top: -60px; position: relative; z-index: 10; margin-bottom: 40px; }
         .os-step { text-align: center; flex: 1; cursor: pointer; position: relative; }
         .os-step:not(:last-child)::after { content: ''; position: absolute; top: 20px; right: -50%; width: 100%; height: 2px; background-color: var(--color-border); z-index: -1; }
@@ -172,7 +172,7 @@
                     <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=200&fit=crop" class="os-card-image" alt="Cidadão Digital">
                     <div class="os-card-content">
                         <div class="os-card-header"><span class="os-card-icon">🌐</span><span class="os-tag">Público</span></div>
-                        <h3>Cursos disponíveis para a sociedade</h3>
+                        <h3>Serpro Cidadão Digital</h3>
                         <p>Cursos abertos oferecidos à sociedade sem necessidade de autenticação corporativa.</p>
                         <div class="os-card-action">Explorar Cursos →</div>
                     </div>
@@ -184,15 +184,6 @@
                         <h3>Demonstra</h3>
                         <p>Sistema dedicado à criação de tutoriais rápidos pelas equipes.</p>
                         <div class="os-card-action">Acessar Sistema →</div>
-                    </div>
-                </a>
-                <a href="https://www.coursera.org/" target="_blank" class="os-card">
-                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=200&fit=crop" class="os-card-image" alt="Coursera">
-                    <div class="os-card-content">
-                        <div class="os-card-header"><span class="os-card-icon">💻</span><span class="os-tag">Parceiro</span></div>
-                        <h3>Coursera</h3>
-                        <p>Escola contratada para utilização pelos empregados. Para saber como solicitar licença, procure sua superintendência.</p>
-                        <div class="os-card-action">Acessar plataforma →</div>
                     </div>
                 </a>
                 <a href="https://aprendamais.mec.gov.br/" target="_blank" class="os-card">
@@ -359,11 +350,12 @@
                         <div class="os-card-action">Acesse aqui →</div>
                     </div>
                 </a>
+                <!-- Card com Título Modificado -->
                 <a href="https://intra.serpro.gov.br/educacao/links-sistemas-internos" target="_blank" class="os-card">
-                    <img src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?w=400&h=200&fit=crop" class="os-card-image" alt="Acesso Sistemas Internos">
+                    <img src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?w=400&h=200&fit=crop" class="os-card-image" alt="Sistemas Internos">
                     <div class="os-card-content">
                         <div class="os-card-header"><span class="os-card-icon">🔗</span><span class="os-tag">Sistemas</span></div>
-                        <h3>Acesso aos sistemas internos</h3>
+                        <h3>Sistemas Internos</h3>
                         <p>Acesse todos os sistemas que fazem parte do ecosssistema da Educação Corporativa.</p>
                         <div class="os-card-action">Acesse aqui →</div>
                     </div>
@@ -405,11 +397,12 @@
                         <div class="os-card-action">Acessar base de conhecimento →</div>
                     </div>
                 </a>
+                <!-- Card com Título Modificado -->
                 <a href="https://soluciona.serpro.gov.br/" target="_blank" class="os-card">
-                    <img src="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=400&h=200&fit=crop" class="os-card-image" alt="Central de Serviços">
+                    <img src="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=400&h=200&fit=crop" class="os-card-image" alt="Abra um chamado">
                     <div class="os-card-content">
                         <div class="os-card-header"><span class="os-card-icon">🎧</span><span class="os-tag">Atendimento</span></div>
-                        <h3>Central de Serviços</h3>
+                        <h3>Abra um chamado</h3>
                         <p>Não encontrou o que precisava? Abra um chamado técnico diretamente para a equipe de Educação Corporativa.</p>
                         <div class="os-card-action">Abrir Chamado →</div>
                     </div>
@@ -420,7 +413,7 @@
     </main>
 
     <script>
-        // Função de navegação por âncora suave continua mantida
+        // Função de navegação por âncora suave, guiando o clique no menu principal
         function scrollToSection(id) {
             const element = document.getElementById(id);
             if (element) {
@@ -428,7 +421,7 @@
             }
         }
 
-        // Script visual da trilha que marca o passo atual quando rolamos a página
+        // Script visual da trilha: Lógica para acender a bolinha atual quando rolamos a página
         const sections = document.querySelectorAll('.os-section');
         window.addEventListener('scroll', () => {
             let current = '';
