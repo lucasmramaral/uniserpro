@@ -3,109 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UniSerpro | Protótipo OutSystems UI</title>
+    <title>UniSerpro | Portal de Educação Corporativa</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* VARIÁVEIS CSS: Mantém o controle centralizado das cores do tema */
+        /* VARIÁVEIS CSS: Cores extraídas da marca oficial */
         :root {
-            --color-primary: #0F1F3D;
-            --color-primary-hover: #1B3A6B;
-            --color-secondary: #E8A33D;
-            --color-secondary-hover: #C97F1E;
-            --color-background: #F5F6FA;
+            --color-primary: #123283;
+            --color-purple: #782F8E;
+            --color-cyan: #00A7D3;
+            --color-accent: #E86C00;
+            
+            --color-background: #F8FAFC;
             --color-surface: #FFFFFF;
-            --color-text-main: #182238;
-            --color-text-muted: #5B6472;
-            --color-border: #E1E4EA;
+            --color-text-main: #0F172A;
+            --color-text-muted: #64748B;
+            --color-border: #E2E8F0;
+            
             --border-radius-soft: 8px;
-            --border-radius-hard: 12px;
-            --shadow-card: 0 4px 12px rgba(15, 31, 61, 0.08);
-            --shadow-hover: 0 8px 24px rgba(15, 31, 61, 0.15);
-            --transition-default: all 0.2s ease-in-out;
-            --font-family: 'Open Sans', sans-serif;
+            --border-radius-hard: 16px;
+            --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition-default: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-family: 'Inter', sans-serif;
         }
 
+        /* RESET CSS */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        body { font-family: var(--font-family); background-color: var(--color-background); color: var(--color-text-main); line-height: 1.6; }
+        body { font-family: var(--font-family); background-color: var(--color-background); color: var(--color-text-main); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
         a { text-decoration: none; color: inherit; }
 
         /* CABEÇALHO PRINCIPAL */
-        .os-header { background-color: var(--color-surface); border-bottom: 1px solid var(--color-border); position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
-        .os-logo { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 20px; color: var(--color-primary); }
-        .os-logo-icon { background-color: var(--color-primary); color: var(--color-secondary); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: var(--border-radius-soft); font-weight: 900; }
-        .os-nav { display: flex; gap: 20px; }
-        .os-nav a { font-size: 14px; font-weight: 600; color: var(--color-text-muted); padding: 8px 12px; border-radius: var(--border-radius-soft); transition: var(--transition-default); }
-        .os-nav a:hover, .os-nav a.active { background-color: var(--color-background); color: var(--color-primary); }
+        .os-header { background-color: var(--color-surface); border-bottom: 1px solid var(--color-border); position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+        .os-logo img { height: 45px; width: auto; object-fit: contain; }
+        .os-nav { display: flex; gap: 24px; }
+        .os-nav a { font-size: 14px; font-weight: 600; color: var(--color-text-muted); padding: 8px 0; border-bottom: 2px solid transparent; transition: var(--transition-default); }
+        .os-nav a:hover, .os-nav a.active { color: var(--color-purple); border-bottom-color: var(--color-purple); }
 
         /* HERO SECTION */
-        .os-hero { background: linear-gradient(135deg, var(--color-primary) 0%, #1B3A6B 100%); color: #ffffff; padding: 60px 24px 80px 24px; text-align: center; }
-        .os-hero h1 { font-size: 36px; margin-bottom: 16px; }
-        .os-hero p.hero-subtitle { font-size: 18px; opacity: 0.9; max-width: 700px; margin: 0 auto; }
+        .os-hero { background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-purple) 50%, var(--color-cyan) 100%); color: #ffffff; padding: 70px 24px 90px 24px; text-align: center; }
+        .os-hero h1 { font-size: 40px; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
+        .os-hero p.hero-subtitle { font-size: 18px; font-weight: 400; opacity: 0.95; max-width: 750px; margin: 0 auto; line-height: 1.5; }
 
         /* KPIs NO HERO */
-        .os-hero-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; max-width: 1000px; margin: 40px auto 0 auto; }
-        .os-hero-kpi-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: var(--border-radius-soft); padding: 20px 16px; backdrop-filter: blur(8px); transition: var(--transition-default); }
-        .os-hero-kpi-card:hover { background: rgba(255, 255, 255, 0.12); transform: translateY(-2px); border-color: rgba(255, 255, 255, 0.3); }
-        .os-hero-kpi-value { font-size: 28px; font-weight: 700; color: var(--color-secondary); line-height: 1.1; margin-bottom: 4px; }
-        .os-hero-kpi-label { font-size: 13px; font-weight: 600; color: #E1E4EA; line-height: 1.3; }
+        .os-hero-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 1000px; margin: 40px auto 0 auto; }
+        .os-hero-kpi-card { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: var(--border-radius-hard); padding: 24px 16px; backdrop-filter: blur(12px); transition: var(--transition-default); }
+        .os-hero-kpi-card:hover { background: rgba(255, 255, 255, 0.15); transform: translateY(-4px); }
+        .os-hero-kpi-value { font-size: 32px; font-weight: 800; color: #FFFFFF; line-height: 1.1; margin-bottom: 4px; }
+        .os-hero-kpi-label { font-size: 13px; font-weight: 500; color: rgba(255, 255, 255, 0.8); text-transform: uppercase; letter-spacing: 0.05em; }
 
         /* CONTEÚDO PRINCIPAL */
-        .os-container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+        .os-container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; flex-grow: 1; width: 100%; }
 
-        /* TRILHA (Stepper): Navegação guiada pelas categorias */
-        .os-stepper { display: flex; justify-content: space-between; background-color: var(--color-surface); padding: 24px; border-radius: var(--border-radius-hard); box-shadow: var(--shadow-card); margin-top: -60px; position: relative; z-index: 10; margin-bottom: 40px; }
+        /* TRILHA (Stepper) */
+        .os-stepper { display: flex; justify-content: space-between; background-color: var(--color-surface); padding: 24px 32px; border-radius: var(--border-radius-hard); box-shadow: var(--shadow-card); margin-top: -70px; position: relative; z-index: 10; margin-bottom: 50px; }
         .os-step { text-align: center; flex: 1; cursor: pointer; position: relative; }
         .os-step:not(:last-child)::after { content: ''; position: absolute; top: 20px; right: -50%; width: 100%; height: 2px; background-color: var(--color-border); z-index: -1; }
-        .os-step-icon { width: 40px; height: 40px; background-color: var(--color-background); border: 2px solid var(--color-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto; font-weight: 700; color: var(--color-text-muted); transition: var(--transition-default); }
-        .os-step:hover .os-step-icon, .os-step.active .os-step-icon { border-color: var(--color-secondary); background-color: var(--color-primary); color: var(--color-secondary); }
-        .os-step-label { font-size: 14px; font-weight: 600; color: var(--color-text-muted); }
-        .os-step.active .os-step-label { color: var(--color-primary); }
+        .os-step-icon { width: 44px; height: 44px; background-color: var(--color-background); border: 2px solid var(--color-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto; font-size: 16px; font-weight: 700; color: var(--color-text-muted); transition: var(--transition-default); }
+        .os-step:hover .os-step-icon, .os-step.active .os-step-icon { border-color: var(--color-cyan); background-color: var(--color-cyan); color: #FFFFFF; box-shadow: 0 4px 12px rgba(0, 167, 211, 0.3); }
+        .os-step-label { font-size: 13px; font-weight: 600; color: var(--color-text-muted); }
+        .os-step.active .os-step-label { color: var(--color-text-main); }
 
         /* SEÇÕES E GRID DE CARDS */
-        .os-section { margin-bottom: 60px; scroll-margin-top: 100px; }
-        .os-section-header { border-bottom: 2px solid var(--color-border); padding-bottom: 16px; margin-bottom: 24px; }
-        .os-section-header h2 { font-size: 24px; color: var(--color-primary); display: flex; align-items: center; gap: 12px; }
-        .os-badge { background-color: var(--color-primary); color: var(--color-secondary); font-size: 12px; padding: 4px 8px; border-radius: 12px; font-weight: 700; }
-        .os-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+        .os-section { margin-bottom: 70px; scroll-margin-top: 100px; }
+        .os-section-header { margin-bottom: 32px; }
+        .os-section-header h2 { font-size: 26px; font-weight: 800; color: var(--color-primary); display: flex; align-items: center; gap: 12px; letter-spacing: -0.01em; margin-bottom: 8px; }
+        .os-badge { background-color: rgba(18, 50, 131, 0.1); color: var(--color-primary); font-size: 14px; padding: 4px 12px; border-radius: 12px; font-weight: 800; }
+        .os-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
         
         /* ESTRUTURA DOS CARDS */
-        .os-card { background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--border-radius-hard); overflow: hidden; transition: var(--transition-default); display: flex; flex-direction: column; height: 100%; }
-        .os-card:hover { box-shadow: var(--shadow-hover); border-color: var(--color-primary); transform: translateY(-4px); }
-        
-        .os-card-image { width: 100%; height: 140px; object-fit: cover; border-bottom: 1px solid var(--color-border); background-color: #E1E4EA; }
+        .os-card { background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--border-radius-hard); overflow: hidden; transition: var(--transition-default); display: flex; flex-direction: column; height: 100%; box-shadow: var(--shadow-card); border-top: 4px solid transparent; }
+        .os-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-6px); border-top-color: var(--color-cyan); }
+        .os-card-image { width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid var(--color-border); background-color: #E1E4EA; }
         .os-card-content { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
         .os-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
-        .os-card-icon { font-size: 24px; }
-        .os-tag { background-color: var(--color-background); color: var(--color-text-muted); font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; }
-        .os-card h3 { font-size: 18px; margin-bottom: 8px; color: var(--color-text-main); }
-        .os-card p { font-size: 14px; color: var(--color-text-muted); flex-grow: 1; margin-bottom: 16px; }
-        .os-card-action { font-size: 14px; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 4px; }
+        .os-card-icon { font-size: 28px; color: var(--color-accent); }
+        .os-tag { background-color: rgba(232, 108, 0, 0.1); color: var(--color-accent); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .os-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: var(--color-text-main); letter-spacing: -0.01em; }
+        .os-card p { font-size: 14px; color: var(--color-text-muted); flex-grow: 1; margin-bottom: 20px; line-height: 1.6; }
+        .os-card-action { font-size: 14px; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 6px; transition: var(--transition-default); }
+        .os-card:hover .os-card-action { color: var(--color-cyan); }
+
+        /* RODAPÉ NOVO */
+        .os-footer { background-color: var(--color-primary); color: #ffffff; padding: 60px 24px 40px; margin-top: auto; }
+        .os-footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px; }
+        .os-footer-logo img { height: 50px; width: auto; filter: grayscale(1) brightness(200); opacity: 0.9; }
+        .os-footer-text { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+        .os-footer-links { display: flex; gap: 32px; margin-top: 16px; flex-wrap: wrap; justify-content: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; width: 100%; }
+        .os-footer-links a { font-size: 14px; font-weight: 600; color: #FFFFFF; transition: var(--transition-default); }
+        .os-footer-links a:hover { color: var(--color-cyan); }
     </style>
 </head>
 <body>
 
     <header class="os-header">
-        <div class="os-logo">
-            <div class="os-logo-icon">US</div>
-            <div>UniSerpro<br><span style="font-size: 12px; font-weight: 400; color: var(--color-text-muted);">Educação Corporativa</span></div>
-        </div>
-        
+        <a href="#" class="os-logo">
+            <img src="image_7c0fa5.png" alt="Logo UniSerpro">
+        </a>
         <nav class="os-nav">
             <a href="#ambientes" class="nav-link">Onde me capacitar?</a>
-            <a href="#catalogos" class="nav-link">Programas Internos</a>
+            <a href="#catalogos" class="nav-link">Programas de Capacitação</a>
             <a href="#pesquisa" class="nav-link">Desenvolvimento Acadêmico</a>
-            <a href="#governanca" class="nav-link">Governança</a>
+            <a href="#governanca" class="nav-link">Gestão do Conhecimento</a>
             <a href="#servicos" class="nav-link">Ajuda</a>
         </nav>
     </header>
 
     <section class="os-hero">
-        <p style="color: var(--color-secondary); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 12px; margin-bottom: 16px;">Portal de Educação Corporativa</p>
-        <h1>Tudo o que você precisa para aprender,<br>ensinar e crescer no Serpro.</h1>
-        <p class="hero-subtitle">Acesse plataformas, consulte indicadores estruturados e gerencie seu desenvolvimento contínuo em um ecossistema digital centralizado.</p>
+        <p style="color: rgba(255,255,255,0.8); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 13px; margin-bottom: 20px;">Portal de Educação Corporativa</p>
+        
+        <!-- Título Atualizado -->
+        <h1>UniSerpro — Conhecimento que transforma</h1>
+        
+        <!-- Texto Atualizado com quebras de linha (<br>) para respiro visual e a tag <em> para o itálico -->
+        <p class="hero-subtitle">
+            O futuro é construído por pessoas que aprendem, evoluem e transformam desafios em novas possibilidades.<br>
+            A UniSerpro é um espaço permanente de aprendizagem, desenvolvimento e inovação, conectando pessoas, competências e estratégia para preparar o Serpro para os desafios.<br><br>
+            <em>Desenvolver pessoas é construir o futuro.</em>
+        </p>
         
         <div class="os-hero-kpis">
             <div class="os-hero-kpi-card">
@@ -122,7 +139,7 @@
             </div>
             <div class="os-hero-kpi-card">
                 <div class="os-hero-kpi-value">+500</div>
-                <div class="os-hero-kpi-label">Empregados com pós-graduação</div>
+                <div class="os-hero-kpi-label">Pós-graduados</div>
             </div>
         </div>
     </section>
@@ -136,7 +153,7 @@
             </div>
             <div class="os-step" onclick="scrollToSection('catalogos')">
                 <div class="os-step-icon">02</div>
-                <div class="os-step-label">Programas Internos</div>
+                <div class="os-step-label">Programas de Capacitação</div>
             </div>
             <div class="os-step" onclick="scrollToSection('pesquisa')">
                 <div class="os-step-icon">03</div>
@@ -144,7 +161,7 @@
             </div>
             <div class="os-step" onclick="scrollToSection('governanca')">
                 <div class="os-step-icon">04</div>
-                <div class="os-step-label">Como funciona?</div>
+                <div class="os-step-label">Gestão e Governança</div>
             </div>
             <div class="os-step" onclick="scrollToSection('servicos')">
                 <div class="os-step-icon">05</div>
@@ -152,7 +169,7 @@
             </div>
         </div>
 
-        <!-- SEÇÃO 1 -->
+        <!-- SEÇÃO 1: ONDE ME CAPACITAR? -->
         <section id="ambientes" class="os-section">
             <div class="os-section-header">
                 <h2><span class="os-badge">01</span> Onde me capacitar?</h2>
@@ -163,29 +180,42 @@
                     <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=200&fit=crop" class="os-card-image" alt="Educa.Você">
                     <div class="os-card-content">
                         <div class="os-card-header"><span class="os-card-icon">🎓</span></div>
-                        <h3>Ambiente EaD Interno</h3>
-                        <p>Ambiente logado para empregados com histórico e emissão de certificados corporativos.</p>
+                        <h3>Serpro Educa.Voce</h3>
+                        <p>Escola interna para realização de cursos EaD pelos empregados.</p>
                         <div class="os-card-action">Acessar Plataforma →</div>
                     </div>
                 </a>
+
+                <a href="https://circuito-educacional.serpro/" target="_blank" class="os-card">
+                    <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=200&fit=crop" class="os-card-image" alt="Catálogo">
+                    <div class="os-card-content">
+                        <div class="os-card-header"><span class="os-card-icon">📚</span><span class="os-tag">Catálogo</span></div>
+                        <h3>Catálogo de Treinamentos EaD</h3>
+                        <p>Navegue pela listagem completa e atualizada da oferta de cursos da UniSerpro.</p>
+                        <div class="os-card-action">Ver Catálogo →</div>
+                    </div>
+                </a>
+                
                 <a href="https://cidadaodigital.serpro.gov.br/" target="_blank" class="os-card">
                     <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=200&fit=crop" class="os-card-image" alt="Cidadão Digital">
                     <div class="os-card-content">
                         <div class="os-card-header"><span class="os-card-icon">🌐</span><span class="os-tag">Público</span></div>
                         <h3>Serpro Cidadão Digital</h3>
-                        <p>Cursos abertos oferecidos à sociedade sem necessidade de autenticação corporativa.</p>
+                        <p>Cursos abertos oferecidos pelo Serpro para a sociedade.</p>
                         <div class="os-card-action">Explorar Cursos →</div>
                     </div>
                 </a>
+
                 <a href="https://demonstra.serpro/" target="_blank" class="os-card">
                     <img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=400&h=200&fit=crop" class="os-card-image" alt="Demonstra">
                     <div class="os-card-content">
                         <div class="os-card-header"><span class="os-card-icon">🎬</span><span class="os-tag">Ferramenta</span></div>
                         <h3>Demonstra</h3>
-                        <p>Sistema dedicado à criação de tutoriais rápidos pelas equipes.</p>
+                        <p>Ferramenta desenvolvida na Uniserpro que possibilita a produção de demonstrações em que as interações são apresentadas sucessivamente, de modo fácil e prático.</p>
                         <div class="os-card-action">Acessar Sistema →</div>
                     </div>
                 </a>
+
                 <a href="https://aprendamais.mec.gov.br/" target="_blank" class="os-card">
                     <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=200&fit=crop" class="os-card-image" alt="Aprenda+ MEC">
                     <div class="os-card-content">
@@ -195,6 +225,7 @@
                         <div class="os-card-action">Acessar plataforma →</div>
                     </div>
                 </a>
+
                 <a href="https://www.escolavirtual.gov.br/" target="_blank" class="os-card">
                     <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=200&fit=crop" class="os-card-image" alt="Escola Virtual Gov">
                     <div class="os-card-content">
@@ -204,25 +235,47 @@
                         <div class="os-card-action">Acessar plataforma →</div>
                     </div>
                 </a>
+
+                <a href="https://avamec.mec.gov.br/" target="_blank" class="os-card">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=200&fit=crop" class="os-card-image" alt="AVAMEC">
+                    <div class="os-card-content">
+                        <div class="os-card-header"><span class="os-card-icon">🎓</span><span class="os-tag">Governo</span></div>
+                        <h3>AVAMEC</h3>
+                        <p>Plataforma digital gratuita do Governo Federal voltada para a oferta de cursos a distância e formação continuada.</p>
+                        <div class="os-card-action">Acessar plataforma →</div>
+                    </div>
+                </a>
+
+                <a href="https://educa.ibge.gov.br/" target="_blank" class="os-card">
+                    <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&h=200&fit=crop" class="os-card-image" alt="IBGEeduca">
+                    <div class="os-card-content">
+                        <div class="os-card-header"><span class="os-card-icon">📊</span><span class="os-tag">Governo</span></div>
+                        <h3>IBGEeduca</h3>
+                        <p>Portal do IBGE voltado para a educação, com conteúdos atualizados e lúdicos sobre o Brasil.</p>
+                        <div class="os-card-action">Acessar portal →</div>
+                    </div>
+                </a>
+
+                <a href="https://cartilha.cert.br/fasciculos/" target="_blank" class="os-card">
+                    <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=200&fit=crop" class="os-card-image" alt="Cartilha de Segurança">
+                    <div class="os-card-content">
+                        <div class="os-card-header"><span class="os-card-icon">🛡️</span><span class="os-tag">Segurança</span></div>
+                        <h3>Cartilha de Segurança para Internet</h3>
+                        <p>Conjunto de documentos com recomendações e dicas sobre navegação segura na Internet, criado e mantido pelo CERT.br.</p>
+                        <div class="os-card-action">Acessar cartilha →</div>
+                    </div>
+                </a>
             </div>
         </section>
 
-        <!-- SEÇÃO 2 -->
+        <!-- SEÇÃO 2: PROGRAMAS DE CAPACITAÇÃO -->
         <section id="catalogos" class="os-section">
             <div class="os-section-header">
-                <h2><span class="os-badge">02</span> Programas Internos de Capacitação</h2>
-                <p style="color: var(--color-text-muted);">Explore a prateleira de serviços e programas estruturados de desenvolvimento.</p>
+                <h2><span class="os-badge">02</span> Programas de Capacitação</h2>
+                <p style="color: var(--color-text-muted);">Conheça os programas estruturados de capacitação corporativa da empresa para o ano vigente.</p>
             </div>
             <div class="os-grid">
-                <a href="https://circuito-educacional.serpro/" target="_blank" class="os-card">
-                    <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=200&fit=crop" class="os-card-image" alt="Catálogo">
-                    <div class="os-card-content">
-                        <div class="os-card-header"><span class="os-card-icon">📚</span><span class="os-tag">Catálogo</span></div>
-                        <h3>Catálogo de Treinamentos</h3>
-                        <p>Navegue pela listagem completa e atualizada da oferta de cursos da UniSerpro.</p>
-                        <div class="os-card-action">Ver Catálogo →</div>
-                    </div>
-                </a>
+                
                 <a href="https://intra.serpro.gov.br/educacao/programa-de-lideranca" target="_blank" class="os-card">
                     <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=200&fit=crop" class="os-card-image" alt="Lideranças">
                     <div class="os-card-content">
@@ -232,28 +285,60 @@
                         <div class="os-card-action">Acessar Trilha →</div>
                     </div>
                 </a>
+                
                 <a href="https://intra.serpro.gov.br/noticias/noticias-2026/grade-basica-2026-abre-inscricoes-ha-turmas-de-julho-a-novembro" target="_blank" class="os-card">
                     <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=200&fit=crop" class="os-card-image" alt="Grade Básica">
                     <div class="os-card-content">
                         <div class="os-card-header"><span class="os-card-icon">⚖️</span><span class="os-tag">Obrigatório</span></div>
-                        <h3>Grade Básica Obrigatória</h3>
-                        <p>Conheça os treinamentos obrigatórios para os empregados em 2026.</p>
+                        <h3>Grade Básica</h3>
+                        <p>Programa anual de ampla oferta ao corpo funcional e gerencial, com a oferta de treinamentos relevantes para a sua atuação e alinhados à estratégia corporativa.</p>
                         <div class="os-card-action">Acesse o conteúdo →</div>
                     </div>
                 </a>
-                <a href="https://intra.serpro.gov.br/educacao/quero-me-capacitar/capacitacao-serpro-multicloud" target="_blank" class="os-card">
-                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=200&fit=crop" class="os-card-image" alt="Multicloud">
+                
+                <a href="https://serprogovbr.sharepoint.com/sites/HUBPlataformadeNuvem/SitePages/Capacita%C3%A7%C3%A3o.aspx" target="_blank" class="os-card">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=200&fit=crop" class="os-card-image" alt="Capacitação em Nuvem">
                     <div class="os-card-content">
                         <div class="os-card-header"><span class="os-card-icon">☁️</span><span class="os-tag">Estratégico</span></div>
-                        <h3>Multicloud</h3>
-                        <p>Posiciona a Empresa como cloud broker para entregar soluções inteligentes, seguras e confiáveis, suportadas por profissionais capacitados.</p>
+                        <h3>Capacitação em Nuvem</h3>
+                        <p>Programa estruturado que integra formação teórica, atividades práticas em laboratórios, desenvolvimento de projetos simulados e preparação para certificações oficiais dos provedores de serviços em nuvem.</p>
                         <div class="os-card-action">Acessar trilha →</div>
+                    </div>
+                </a>
+
+                <a href="#" class="os-card">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=200&fit=crop" class="os-card-image" alt="Inteligência Artificial">
+                    <div class="os-card-content">
+                        <div class="os-card-header"><span class="os-card-icon">🤖</span><span class="os-tag">Inovação</span></div>
+                        <h3>Inteligência Artificial</h3>
+                        <p>Capacitações para promover adoção e o uso responsável, ético e seguro da Inteligência Artificial em processos de trabalho. Fique atento as divulgações!</p>
+                        <div class="os-card-action">Em breve →</div>
+                    </div>
+                </a>
+
+                <a href="#" class="os-card">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=200&fit=crop" class="os-card-image" alt="Compassos">
+                    <div class="os-card-content">
+                        <div class="os-card-header"><span class="os-card-icon">🤝</span><span class="os-tag">Comportamental</span></div>
+                        <h3>Compassos</h3>
+                        <p>Programa voltado à aprendizagem contínua por meio de treinamentos vinculados a temas atitudinais e transversais.</p>
+                        <div class="os-card-action">Em breve →</div>
+                    </div>
+                </a>
+
+                <a href="#" class="os-card">
+                    <img src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=400&h=200&fit=crop" class="os-card-image" alt="Mentoria">
+                    <div class="os-card-content">
+                        <div class="os-card-header"><span class="os-card-icon">💡</span><span class="os-tag">Liderança</span></div>
+                        <h3>Mentoria</h3>
+                        <p>Um programa estratégico que conecta mentores e mentorados para trocar experiências reais e formar líderes preparados para o futuro da empresa.</p>
+                        <div class="os-card-action">Em breve →</div>
                     </div>
                 </a>
             </div>
         </section>
 
-        <!-- SEÇÃO 3 -->
+        <!-- SEÇÃO 3: DESENVOLVIMENTO ACADÊMICO E INOVAÇÃO -->
         <section id="pesquisa" class="os-section">
             <div class="os-section-header">
                 <h2><span class="os-badge">03</span> Desenvolvimento Acadêmico e Inovação</h2>
@@ -263,8 +348,8 @@
                     <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=400&h=200&fit=crop" class="os-card-image" alt="Biblioteca">
                     <div class="os-card-content">
                         <div class="os-card-header"><span class="os-card-icon">📖</span><span class="os-tag">Digital</span></div>
-                        <h3>Biblioteca Digital</h3>
-                        <p>Repositório institucional de artigos, teses e material de apoio para aprofundamento.</p>
+                        <h3>Biblioteca</h3>
+                        <p>Acervo diversificado e especializado em TI, atuando também nas esferas acadêmica, cultural e social e favorecendo a prática da pesquisa.</p>
                         <div class="os-card-action">Pesquisar Acervo →</div>
                     </div>
                 </a>
@@ -273,7 +358,7 @@
                     <div class="os-card-content">
                         <div class="os-card-header"><span class="os-card-icon">🏆</span><span class="os-tag">Engajamento</span></div>
                         <h3>Prêmio Serpro de Inovação</h3>
-                        <p>Conheça os regulamentos, histórico de vencedores e inscreva sua iniciativa.</p>
+                        <p>Congresso de inovação que reconhece e premia ideias e pesquisas de funcionários voltadas para tecnologia e gestão.</p>
                         <div class="os-card-action">Ver Edital Atual →</div>
                     </div>
                 </a>
@@ -316,11 +401,11 @@
             </div>
         </section>
 
-        <!-- SEÇÃO 4 -->
+        <!-- SEÇÃO 4: GESTÃO DO CONHECIMENTO E GOVERNANÇA -->
         <section id="governanca" class="os-section">
             <div class="os-section-header">
-                <h2><span class="os-badge">04</span> Governança e Transparência</h2>
-                <p style="color: var(--color-text-muted);">Indicadores de performance e estruturação organizacional.</p>
+                <h2><span class="os-badge">04</span> Gestão do Conhecimento e Governança</h2>
+                <p>Indicadores de performance e estruturação organizacional.</p>
             </div>
             <div class="os-grid">
                 <a href="https://intra.serpro.gov.br/educacao/quem-somos" target="_blank" class="os-card">
@@ -332,15 +417,6 @@
                         <div class="os-card-action">Conhecer a UniSerpro →</div>
                     </div>
                 </a>
-                <a href="#" class="os-card">
-                    <img src="https://images.unsplash.com/photo-1618044733300-9472054094ee?w=400&h=200&fit=crop" class="os-card-image" alt="Normas e Políticas">
-                    <div class="os-card-content">
-                        <div class="os-card-header"><span class="os-card-icon">📄</span><span class="os-tag">Documentos</span></div>
-                        <h3>Normas e Políticas</h3>
-                        <p>Consolidação de todas as diretrizes institucionais vigentes sobre educação.</p>
-                        <div class="os-card-action">Acessar Repositório →</div>
-                    </div>
-                </a>
                 <a href="https://intra.serpro.gov.br/educacao/indicadores-educacionais" target="_blank" class="os-card">
                     <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop" class="os-card-image" alt="Indicadores">
                     <div class="os-card-content">
@@ -350,9 +426,8 @@
                         <div class="os-card-action">Acesse aqui →</div>
                     </div>
                 </a>
-                <!-- Card com Título Modificado -->
                 <a href="https://intra.serpro.gov.br/educacao/links-sistemas-internos" target="_blank" class="os-card">
-                    <img src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?w=400&h=200&fit=crop" class="os-card-image" alt="Sistemas Internos">
+                    <img src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?w=400&h=200&fit=crop" class="os-card-image" alt="Acesso Sistemas Internos">
                     <div class="os-card-content">
                         <div class="os-card-header"><span class="os-card-icon">🔗</span><span class="os-tag">Sistemas</span></div>
                         <h3>Sistemas Internos</h3>
@@ -360,14 +435,41 @@
                         <div class="os-card-action">Acesse aqui →</div>
                     </div>
                 </a>
+                <a href="https://intra.serpro.gov.br/educacao/gestao-do-conhecimento/memoria-serpro" target="_blank" class="os-card">
+                    <img src="https://images.unsplash.com/photo-1461360370896-922624d12aa1?w=400&h=200&fit=crop" class="os-card-image" alt="Memória Serpro">
+                    <div class="os-card-content">
+                        <div class="os-card-header"><span class="os-card-icon">🏛️</span><span class="os-tag">História</span></div>
+                        <h3>Memória Serpro</h3>
+                        <p>Iniciativa que preserva e divulga os marcos históricos do Serpro e da tecnologia no Brasil, reunindo linhas do tempo por década, entrevistas com ex-presidentes e o acervo cultural da instituição.</p>
+                        <div class="os-card-action">Conheça o acervo →</div>
+                    </div>
+                </a>
+                <a href="https://intra.serpro.gov.br/educacao/gestao-do-conhecimento/mapeamento-do-conhecimento" target="_blank" class="os-card">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=200&fit=crop" class="os-card-image" alt="Mapeamento do Conhecimento">
+                    <div class="os-card-content">
+                        <div class="os-card-header"><span class="os-card-icon">🗺️</span><span class="os-tag">Gestão</span></div>
+                        <h3>Mapeamento do Conhecimento</h3>
+                        <p>Sistemática que visa identificar a importância e o nível de domínio das ferramentas digitais no dia a dia dos empregados, permitindo a otimização das capacitações e melhor planejamento das equipes.</p>
+                        <div class="os-card-action">Acessar mapeamento →</div>
+                    </div>
+                </a>
+                <a href="https://intra.serpro.gov.br/educacao/gestao-do-conhecimento/indice-conhecimento-critico/icc" target="_blank" class="os-card">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop" class="os-card-image" alt="Índice de Conhecimento Crítico">
+                    <div class="os-card-content">
+                        <div class="os-card-header"><span class="os-card-icon">📈</span><span class="os-tag">Estratégico</span></div>
+                        <h3>Índice de Conhecimento Crítico</h3>
+                        <p>Mapeamento e identificação do conhecimento crítico com base em seu impacto estratégico, permitindo a promoção de repasses e o armazenamento estruturado desse saber para mitigar riscos e garantir a continuidade das operações.</p>
+                        <div class="os-card-action">Saiba mais →</div>
+                    </div>
+                </a>
             </div>
         </section>
 
-        <!-- SEÇÃO 5 -->
+        <!-- SEÇÃO 5: AJUDA E AUTOATENDIMENTO -->
         <section id="servicos" class="os-section">
             <div class="os-section-header">
                 <h2><span class="os-badge">05</span> Ajuda e Autoatendimento</h2>
-                <p style="color: var(--color-text-muted);">Apoio, requisições de sistemas e central de ajuda.</p>
+                <p>Apoio, requisições de sistemas e central de ajuda.</p>
             </div>
             <div class="os-grid">
                 <a href="https://lowcode.serpro.gov.br/Grow/" target="_blank" class="os-card">
@@ -397,7 +499,6 @@
                         <div class="os-card-action">Acessar base de conhecimento →</div>
                     </div>
                 </a>
-                <!-- Card com Título Modificado -->
                 <a href="https://soluciona.serpro.gov.br/" target="_blank" class="os-card">
                     <img src="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=400&h=200&fit=crop" class="os-card-image" alt="Abra um chamado">
                     <div class="os-card-content">
@@ -407,13 +508,49 @@
                         <div class="os-card-action">Abrir Chamado →</div>
                     </div>
                 </a>
+                <a href="#" class="os-card">
+                    <img src="https://images.unsplash.com/photo-1435527173128-983b87201f4d?w=400&h=200&fit=crop" class="os-card-image" alt="Ciclos de Execução">
+                    <div class="os-card-content">
+                        <div class="os-card-header"><span class="os-card-icon">🗓️</span><span class="os-tag">Planejamento</span></div>
+                        <h3>Ciclos de Execução</h3>
+                        <p>Acompanhe o cronograma dos Ciclos de Execução, permitindo o melhor planejamento das capacitações das áreas.</p>
+                        <div class="os-card-action">Em breve →</div>
+                    </div>
+                </a>
+                <a href="#" class="os-card">
+                    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&h=200&fit=crop" class="os-card-image" alt="Pontos Focais">
+                    <div class="os-card-content">
+                        <div class="os-card-header"><span class="os-card-icon">👥</span><span class="os-tag">Contatos</span></div>
+                        <h3>Pontos Focais</h3>
+                        <p>Acesse a lista atualizada dos Pontos Focais de cada área.</p>
+                        <div class="os-card-action">Em breve →</div>
+                    </div>
+                </a>
             </div>
         </section>
 
     </main>
 
+    <!-- RODAPÉ NOVO -->
+    <footer class="os-footer">
+        <div class="os-footer-content">
+            <a href="#" class="os-footer-logo">
+                <img src="image_7c0fa5.png" alt="Logo UniSerpro">
+            </a>
+            <p class="os-footer-text">
+                <strong>Serviço Federal de Processamento de Dados (Serpro)</strong><br>
+                Universidade Corporativa — Portal de Educação e Capacitação.
+            </p>
+            <div class="os-footer-links">
+                <a href="#top">Voltar ao topo</a>
+                <a href="https://intra.serpro.gov.br/" target="_blank">Intranet Serpro</a>
+                <a href="https://soluciona.serpro.gov.br/" target="_blank">Central de Atendimento</a>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        // Função de navegação por âncora suave, guiando o clique no menu principal
+        // Função responsável por deslizar a tela suavemente até a seção desejada
         function scrollToSection(id) {
             const element = document.getElementById(id);
             if (element) {
@@ -421,7 +558,7 @@
             }
         }
 
-        // Script visual da trilha: Lógica para acender a bolinha atual quando rolamos a página
+        // Lógica visual para acender as bolinhas da trilha conforme a rolagem do mouse
         const sections = document.querySelectorAll('.os-section');
         window.addEventListener('scroll', () => {
             let current = '';
