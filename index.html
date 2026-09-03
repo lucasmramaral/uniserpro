@@ -1,103 +1,175 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- Configurações básicas de codificação e responsividade para dispositivos móveis -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UniSerpro | Portal de Educação Corporativa</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Importação das Fontes Oficiais (Rawline para Governo e Open Sans como plano B) -->
+    <link rel="stylesheet" href="https://cdngovbr-ds.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* VARIÁVEIS CSS: Cores extraídas da marca oficial */
+        /* 1️⃣ TOKENS DE DESIGN (Variáveis CSS)
+           Analogia: Pense nas variáveis como "caixinhas" onde guardamos as cores oficiais. 
+           Se a marca mudar de cor no futuro, alteramos apenas aqui e o site inteiro é atualizado. */
         :root {
-            --color-primary: #123283;
-            --color-purple: #782F8E;
-            --color-cyan: #00A7D3;
-            --color-accent: #E86C00;
+            /* Cores de Marca Institucionais */
+            --color-primary: #1351B4;      /* Azul Base gov.br */
+            --color-primary-dark: #0C326F; /* Azul Escuro gov.br */
+            --color-secondary: #E86C00;    /* Laranja de Destaque gov.br */
             
-            --color-background: #F8FAFC;
-            --color-surface: #FFFFFF;
-            --color-text-main: #0F172A;
-            --color-text-muted: #64748B;
-            --color-border: #E2E8F0;
+            /* Cores Vibrantes (Usadas para o Gradiente da Moldura Simétrica) */
+            --color-purple: #782F8E;       
+            --color-cyan: #00A7D3;         
             
-            --border-radius-soft: 8px;
-            --border-radius-hard: 16px;
-            --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --transition-default: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --font-family: 'Inter', sans-serif;
+            /* Cores de Fundo (Superfícies) */
+            --color-background: #F8F9FA;   /* Fundo geral da página */
+            --color-surface: #FFFFFF;      /* Fundo branco dos cards */
+            
+            /* Cores de Texto (Garantindo contraste WCAG AA) */
+            --color-text-main: #333333;    
+            --color-text-muted: #555555;   
+            --color-border: #E6E6E6;
+            
+            /* Escala Tipográfica (Usando 'rem' para acessibilidade de zoom no navegador) */
+            --font-family: 'rawline', 'Open Sans', sans-serif;
+            --font-size-h1: 2.5rem;   
+            --font-size-h2: 1.75rem;  
+            --font-size-h3: 1.25rem;  
+            --font-size-body: 1rem;   
+            --font-size-small: 0.875rem; 
+            
+            /* Espaçamentos Padrões (Mapeados para o OutSystems UI) */
+            --space-xs: 0.25rem;  
+            --space-s: 0.5rem;    
+            --space-m: 1rem;      
+            --space-l: 1.5rem;    
+            --space-xl: 2.5rem;   
+            
+            /* Configurações de Bordas e Sombras (Elevação visual) */
+            --border-radius-card: 8px; 
+            --border-radius-badge: 100px;
+            --shadow-s: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            --shadow-m: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            
+            /* Animação suave global */
+            --transition-default: all 0.2s ease-in-out;
         }
 
-        /* RESET CSS */
+        /* 2️⃣ RESET CSS BASE
+           Remove as margens padrão dos navegadores para termos controle total do layout */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { font-family: var(--font-family); background-color: var(--color-background); color: var(--color-text-main); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        /* O Flexbox no body empurra o rodapé sempre para o final da página */
+        body { font-family: var(--font-family); background-color: var(--color-background); color: var(--color-text-main); line-height: 1.5; display: flex; flex-direction: column; min-height: 100vh; }
         a { text-decoration: none; color: inherit; }
 
-        /* CABEÇALHO PRINCIPAL */
-        .os-header { background-color: var(--color-surface); border-bottom: 1px solid var(--color-border); position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
-        .os-logo img { height: 45px; width: auto; object-fit: contain; }
-        .os-nav { display: flex; gap: 24px; }
-        .os-nav a { font-size: 14px; font-weight: 600; color: var(--color-text-muted); padding: 8px 0; border-bottom: 2px solid transparent; transition: var(--transition-default); }
-        .os-nav a:hover, .os-nav a.active { color: var(--color-purple); border-bottom-color: var(--color-purple); }
-
-        /* HERO SECTION */
-        .os-hero { background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-purple) 50%, var(--color-cyan) 100%); color: #ffffff; padding: 70px 24px 90px 24px; text-align: center; }
-        .os-hero h1 { font-size: 40px; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
-        .os-hero p.hero-subtitle { font-size: 18px; font-weight: 400; opacity: 0.95; max-width: 750px; margin: 0 auto; line-height: 1.5; }
-
-        /* KPIs NO HERO */
-        .os-hero-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 1000px; margin: 40px auto 0 auto; }
-        .os-hero-kpi-card { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: var(--border-radius-hard); padding: 24px 16px; backdrop-filter: blur(12px); transition: var(--transition-default); }
-        .os-hero-kpi-card:hover { background: rgba(255, 255, 255, 0.15); transform: translateY(-4px); }
-        .os-hero-kpi-value { font-size: 32px; font-weight: 800; color: #FFFFFF; line-height: 1.1; margin-bottom: 4px; }
-        .os-hero-kpi-label { font-size: 13px; font-weight: 500; color: rgba(255, 255, 255, 0.8); text-transform: uppercase; letter-spacing: 0.05em; }
-
-        /* CONTEÚDO PRINCIPAL */
-        .os-container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; flex-grow: 1; width: 100%; }
-
-        /* TRILHA (Stepper) */
-        .os-stepper { display: flex; justify-content: space-between; background-color: var(--color-surface); padding: 24px 32px; border-radius: var(--border-radius-hard); box-shadow: var(--shadow-card); margin-top: -70px; position: relative; z-index: 10; margin-bottom: 50px; }
-        .os-step { text-align: center; flex: 1; cursor: pointer; position: relative; }
-        .os-step:not(:last-child)::after { content: ''; position: absolute; top: 20px; right: -50%; width: 100%; height: 2px; background-color: var(--color-border); z-index: -1; }
-        .os-step-icon { width: 44px; height: 44px; background-color: var(--color-background); border: 2px solid var(--color-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto; font-size: 16px; font-weight: 700; color: var(--color-text-muted); transition: var(--transition-default); }
-        .os-step:hover .os-step-icon, .os-step.active .os-step-icon { border-color: var(--color-cyan); background-color: var(--color-cyan); color: #FFFFFF; box-shadow: 0 4px 12px rgba(0, 167, 211, 0.3); }
-        .os-step-label { font-size: 13px; font-weight: 600; color: var(--color-text-muted); }
-        .os-step.active .os-step-label { color: var(--color-text-main); }
-
-        /* SEÇÕES E GRID DE CARDS */
-        .os-section { margin-bottom: 70px; scroll-margin-top: 100px; }
-        .os-section-header { margin-bottom: 32px; }
-        .os-section-header h2 { font-size: 26px; font-weight: 800; color: var(--color-primary); display: flex; align-items: center; gap: 12px; letter-spacing: -0.01em; margin-bottom: 8px; }
-        .os-badge { background-color: rgba(18, 50, 131, 0.1); color: var(--color-primary); font-size: 14px; padding: 4px 12px; border-radius: 12px; font-weight: 800; }
-        .os-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+        /* 3️⃣ COMPONENTES ESTRUTURAIS */
         
-        /* ESTRUTURA DOS CARDS */
-        .os-card { background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--border-radius-hard); overflow: hidden; transition: var(--transition-default); display: flex; flex-direction: column; height: 100%; box-shadow: var(--shadow-card); border-top: 4px solid transparent; }
-        .os-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-6px); border-top-color: var(--color-cyan); }
-        .os-card-image { width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid var(--color-border); background-color: #E1E4EA; }
-        .os-card-content { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
-        .os-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
-        .os-card-icon { font-size: 28px; color: var(--color-accent); }
-        .os-tag { background-color: rgba(232, 108, 0, 0.1); color: var(--color-accent); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; }
-        .os-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: var(--color-text-main); letter-spacing: -0.01em; }
-        .os-card p { font-size: 14px; color: var(--color-text-muted); flex-grow: 1; margin-bottom: 20px; line-height: 1.6; }
-        .os-card-action { font-size: 14px; font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: 6px; transition: var(--transition-default); }
-        .os-card:hover .os-card-action { color: var(--color-cyan); }
+        /* Cabeçalho Fixo (Sticky) */
+        .os-header { background-color: var(--color-surface); border-bottom: 1px solid var(--color-border); position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: var(--space-m) var(--space-l); box-shadow: var(--shadow-s); }
+        .os-logo img { height: 48px; width: auto; object-fit: contain; }
+        .os-nav { display: flex; gap: var(--space-l); }
+        .os-nav a { font-size: var(--font-size-body); font-weight: 600; color: var(--color-text-muted); padding: var(--space-s) 0; border-bottom: 2px solid transparent; transition: var(--transition-default); }
+        .os-nav a:hover, .os-nav a.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
 
-        /* RODAPÉ NOVO */
-        .os-footer { background-color: var(--color-primary); color: #ffffff; padding: 60px 24px 40px; margin-top: auto; }
-        .os-footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px; }
-        .os-footer-logo img { height: 50px; width: auto; filter: grayscale(1) brightness(200); opacity: 0.9; }
-        .os-footer-text { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.6; }
-        .os-footer-links { display: flex; gap: 32px; margin-top: 16px; flex-wrap: wrap; justify-content: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; width: 100%; }
-        .os-footer-links a { font-size: 14px; font-weight: 600; color: #FFFFFF; transition: var(--transition-default); }
-        .os-footer-links a:hover { color: var(--color-cyan); }
+        /* Hero (Banner Principal com Gradiente Vibrante) */
+        .os-hero { 
+            /* A função linear-gradient mistura as 3 cores da borboleta em um ângulo de 135 graus */
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-purple) 50%, var(--color-cyan) 100%); 
+            color: #ffffff; 
+            padding: 4rem var(--space-l) 6rem; 
+            text-align: center; 
+        }
+        .os-hero h1 { font-size: var(--font-size-h1); font-weight: 700; margin-bottom: var(--space-m); }
+        .os-hero p.hero-subtitle { font-size: 1.125rem; font-weight: 400; max-width: 800px; margin: 0 auto; line-height: 1.6; opacity: 0.95;}
+
+        /* KPIs (Indicadores no Hero) */
+        .os-hero-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-m); max-width: 1000px; margin: 2.5rem auto 0; }
+        .os-hero-kpi-card { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: var(--border-radius-card); padding: var(--space-l); backdrop-filter: blur(12px); transition: var(--transition-default); }
+        .os-hero-kpi-card:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
+        .os-hero-kpi-value { font-size: 2rem; font-weight: 700; color: #FFFFFF; margin-bottom: var(--space-xs); line-height: 1.1; }
+        .os-hero-kpi-label { font-size: var(--font-size-small); font-weight: 600; color: rgba(255, 255, 255, 0.9); text-transform: uppercase; letter-spacing: 0.05em; }
+
+        /* Container Principal que centraliza o conteúdo da página */
+        .os-container { max-width: 1200px; margin: 0 auto; padding: var(--space-xl) var(--space-l); flex-grow: 1; width: 100%; }
+
+        /* Stepper (Trilha de Navegação Superior) */
+        .os-stepper { display: flex; justify-content: space-between; background-color: var(--color-surface); padding: var(--space-l) var(--space-xl); border-radius: var(--border-radius-card); box-shadow: var(--shadow-s); margin-top: -80px; position: relative; z-index: 10; margin-bottom: 4rem; border: 1px solid var(--color-border); }
+        .os-step { text-align: center; flex: 1; cursor: pointer; position: relative; }
+        /* A linha horizontal que conecta as bolinhas do stepper */
+        .os-step:not(:last-child)::after { content: ''; position: absolute; top: 1.25rem; right: -50%; width: 100%; height: 2px; background-color: var(--color-border); z-index: -1; }
+        .os-step-icon { width: 2.5rem; height: 2.5rem; background-color: var(--color-background); border: 2px solid var(--color-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-s); font-size: 1rem; font-weight: 700; color: var(--color-text-muted); transition: var(--transition-default); }
+        .os-step:hover .os-step-icon, .os-step.active .os-step-icon { border-color: var(--color-primary); background-color: var(--color-primary); color: #FFFFFF; }
+        .os-step-label { font-size: var(--font-size-small); font-weight: 600; color: var(--color-text-muted); }
+        .os-step.active .os-step-label { color: var(--color-primary-dark); }
+
+        /* Estrutura das Seções e Grid de Cards */
+        .os-section { margin-bottom: 4.5rem; scroll-margin-top: 100px; }
+        .os-section-header { margin-bottom: var(--space-xl); border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-m); }
+        .os-section-header h2 { font-size: var(--font-size-h2); font-weight: 600; color: var(--color-primary-dark); display: flex; align-items: center; gap: var(--space-s); margin-bottom: var(--space-xs); }
+        .os-section-header p { font-size: var(--font-size-body); color: var(--color-text-muted); }
+        .os-badge { background-color: var(--color-primary); color: #FFFFFF; font-size: var(--font-size-small); padding: 0.25rem 0.75rem; border-radius: var(--border-radius-badge); font-weight: 700; }
+        
+        /* Grid dinâmico: Ajusta os cards automaticamente conforme o tamanho da tela */
+        .os-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-l); }
+        
+        /* 4️⃣ ANATOMIA DO CARD 
+           Este é o código que o dev irá usar para criar o "Web Block" no OutSystems */
+        .os-card { 
+            background-color: var(--color-surface); 
+            border: 1px solid var(--color-border); 
+            border-radius: var(--border-radius-card); 
+            overflow: hidden; 
+            transition: var(--transition-default); 
+            display: flex; 
+            flex-direction: column; 
+            height: 100%; 
+            box-shadow: var(--shadow-s);
+        }
+        .os-card:hover { 
+            box-shadow: var(--shadow-m); 
+            transform: translateY(-2px); 
+            border-color: var(--color-cyan); 
+        }
+        
+        /* Object-fit garante que a imagem não seja esticada */
+        .os-card-image { width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid var(--color-border); background-color: var(--color-border); }
+        .os-card-content { padding: var(--space-l); display: flex; flex-direction: column; flex-grow: 1; }
+        .os-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-m); }
+        
+        .os-card-icon { font-size: 1.5rem; color: var(--color-secondary); }
+        .os-tag { background-color: #E6F0FA; color: var(--color-primary-dark); font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.5rem; border-radius: 4px; text-transform: uppercase; }
+        
+        .os-card h3 { font-size: var(--font-size-h3); font-weight: 600; margin-bottom: var(--space-s); color: var(--color-text-main); line-height: 1.3; }
+        .os-card p { font-size: var(--font-size-body); color: var(--color-text-muted); flex-grow: 1; margin-bottom: var(--space-l); line-height: 1.5; }
+        
+        .os-card-action { font-size: var(--font-size-small); font-weight: 700; color: var(--color-primary); display: flex; align-items: center; gap: var(--space-xs); transition: var(--transition-default); text-transform: uppercase; }
+        .os-card:hover .os-card-action { color: var(--color-secondary); }
+
+        /* 5️⃣ RODAPÉ (MOLDURA SIMÉTRICA RESTAURADA) 
+           O background utiliza a mesma função linear-gradient aplicada no Header */
+        .os-footer { 
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-purple) 50%, var(--color-cyan) 100%); 
+            color: #ffffff; 
+            padding: 4rem 1.5rem 3rem; 
+            margin-top: auto; 
+            border-top: 4px solid var(--color-secondary); 
+        }
+        .os-footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-l); }
+        /* O filtro grayscale tira a cor da logo no rodapé para não conflitar com o fundo colorido */
+        .os-footer-logo img { height: 48px; width: auto; filter: grayscale(1) brightness(200); opacity: 0.9; }
+        .os-footer-text { font-size: var(--font-size-small); color: rgba(255,255,255,0.8); line-height: 1.6; }
+        .os-footer-links { display: flex; gap: var(--space-xl); margin-top: var(--space-m); flex-wrap: wrap; justify-content: center; border-top: 1px solid rgba(255,255,255,0.2); padding-top: var(--space-l); width: 100%; }
+        .os-footer-links a { font-size: var(--font-size-small); font-weight: 600; color: #FFFFFF; transition: var(--transition-default); text-transform: uppercase; }
+        .os-footer-links a:hover { color: var(--color-secondary); text-decoration: underline; }
     </style>
 </head>
 <body>
 
+    <!-- 📌 BARRA DE NAVEGAÇÃO SUPERIOR -->
     <header class="os-header">
         <a href="#" class="os-logo">
             <img src="image_7c0fa5.png" alt="Logo UniSerpro">
@@ -111,19 +183,20 @@
         </nav>
     </header>
 
+    <!-- 📌 HERO SECTION (O Título e Texto Principal que configuramos) -->
     <section class="os-hero">
-        <p style="color: rgba(255,255,255,0.8); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 13px; margin-bottom: 20px;">Portal de Educação Corporativa</p>
+        <p style="color: rgba(255,255,255,0.9); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.875rem; margin-bottom: 1rem;">Portal de Educação Corporativa</p>
         
-        <!-- Título Atualizado -->
         <h1>UniSerpro — Conhecimento que transforma</h1>
         
-        <!-- Texto Atualizado com quebras de linha (<br>) para respiro visual e a tag <em> para o itálico -->
         <p class="hero-subtitle">
             O futuro é construído por pessoas que aprendem, evoluem e transformam desafios em novas possibilidades.<br>
             A UniSerpro é um espaço permanente de aprendizagem, desenvolvimento e inovação, conectando pessoas, competências e estratégia para preparar o Serpro para os desafios.<br><br>
+            <!-- O <em> inclina a fonte para dar ênfase à frase -->
             <em>Desenvolver pessoas é construir o futuro.</em>
         </p>
         
+        <!-- Indicadores (KPIs) de Sucesso -->
         <div class="os-hero-kpis">
             <div class="os-hero-kpi-card">
                 <div class="os-hero-kpi-value">+1000</div>
@@ -144,8 +217,10 @@
         </div>
     </section>
 
+    <!-- 📌 INÍCIO DO CONTEÚDO DA PÁGINA (MAIN) -->
     <main class="os-container">
 
+        <!-- Stepper Dinâmico: Ajuda o usuário a saber em que parte da página ele está -->
         <div class="os-stepper">
             <div class="os-step active" onclick="scrollToSection('ambientes')">
                 <div class="os-step-icon">01</div>
@@ -169,13 +244,15 @@
             </div>
         </div>
 
-        <!-- SEÇÃO 1: ONDE ME CAPACITAR? -->
+        <!-- SEÇÃO 01: ONDE ME CAPACITAR? 
+             Limpamos os parceiros externos para manter o foco primário conforme sua estratégia de MVP -->
         <section id="ambientes" class="os-section">
             <div class="os-section-header">
                 <h2><span class="os-badge">01</span> Onde me capacitar?</h2>
-                <p style="color: var(--color-text-muted);">Acesso rápido às plataformas de ensino interno e parceiros.</p>
+                <p>Acesso rápido às plataformas de ensino interno e parceiros.</p>
             </div>
             <div class="os-grid">
+                <!-- Card 1: Educa.Voce -->
                 <a href="https://educa.voce.serpro.gov.br/" target="_blank" class="os-card">
                     <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=200&fit=crop" class="os-card-image" alt="Educa.Você">
                     <div class="os-card-content">
@@ -186,6 +263,7 @@
                     </div>
                 </a>
 
+                <!-- Card 2: Catálogo EaD -->
                 <a href="https://circuito-educacional.serpro/" target="_blank" class="os-card">
                     <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=200&fit=crop" class="os-card-image" alt="Catálogo">
                     <div class="os-card-content">
@@ -196,6 +274,7 @@
                     </div>
                 </a>
                 
+                <!-- Card 3: Cidadão Digital -->
                 <a href="https://cidadaodigital.serpro.gov.br/" target="_blank" class="os-card">
                     <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=200&fit=crop" class="os-card-image" alt="Cidadão Digital">
                     <div class="os-card-content">
@@ -206,6 +285,7 @@
                     </div>
                 </a>
 
+                <!-- Card 4: Demonstra -->
                 <a href="https://demonstra.serpro/" target="_blank" class="os-card">
                     <img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=400&h=200&fit=crop" class="os-card-image" alt="Demonstra">
                     <div class="os-card-content">
@@ -216,63 +296,25 @@
                     </div>
                 </a>
 
-                <a href="https://aprendamais.mec.gov.br/" target="_blank" class="os-card">
-                    <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=200&fit=crop" class="os-card-image" alt="Aprenda+ MEC">
+                <!-- NOVO CARD 5: COURSERA -->
+                <a href="https://catalogo-uniserpro-coursera.base44.app/catalogo" target="_blank" class="os-card">
+                    <!-- A imagem escolhida (foto de um computador) remete diretamente a uma plataforma de ensino moderna -->
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=200&fit=crop" class="os-card-image" alt="Coursera">
                     <div class="os-card-content">
-                        <div class="os-card-header"><span class="os-card-icon">🇧🇷</span><span class="os-tag">MEC</span></div>
-                        <h3>Aprenda+</h3>
-                        <p>Iniciativa do MEC que oferece cursos on-line, abertos e gratuitos em diversas áreas do conhecimento, todos com certificação.</p>
+                        <div class="os-card-header"><span class="os-card-icon">💻</span><span class="os-tag">Parceiro</span></div>
+                        <h3>Coursera</h3>
+                        <p>Navegue pelo catálogo do fornecedor, verifique os cursos disponíveis e se programe para realizar os treinamentos.</p>
                         <div class="os-card-action">Acessar plataforma →</div>
-                    </div>
-                </a>
-
-                <a href="https://www.escolavirtual.gov.br/" target="_blank" class="os-card">
-                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=200&fit=crop" class="os-card-image" alt="Escola Virtual Gov">
-                    <div class="os-card-content">
-                        <div class="os-card-header"><span class="os-card-icon">🏛️</span><span class="os-tag">Enap</span></div>
-                        <h3>Escola Virtual Gov</h3>
-                        <p>Plataforma de educação a distância da Enap, voltada à capacitação e ao aperfeiçoamento de servidores públicos.</p>
-                        <div class="os-card-action">Acessar plataforma →</div>
-                    </div>
-                </a>
-
-                <a href="https://avamec.mec.gov.br/" target="_blank" class="os-card">
-                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=200&fit=crop" class="os-card-image" alt="AVAMEC">
-                    <div class="os-card-content">
-                        <div class="os-card-header"><span class="os-card-icon">🎓</span><span class="os-tag">Governo</span></div>
-                        <h3>AVAMEC</h3>
-                        <p>Plataforma digital gratuita do Governo Federal voltada para a oferta de cursos a distância e formação continuada.</p>
-                        <div class="os-card-action">Acessar plataforma →</div>
-                    </div>
-                </a>
-
-                <a href="https://educa.ibge.gov.br/" target="_blank" class="os-card">
-                    <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&h=200&fit=crop" class="os-card-image" alt="IBGEeduca">
-                    <div class="os-card-content">
-                        <div class="os-card-header"><span class="os-card-icon">📊</span><span class="os-tag">Governo</span></div>
-                        <h3>IBGEeduca</h3>
-                        <p>Portal do IBGE voltado para a educação, com conteúdos atualizados e lúdicos sobre o Brasil.</p>
-                        <div class="os-card-action">Acessar portal →</div>
-                    </div>
-                </a>
-
-                <a href="https://cartilha.cert.br/fasciculos/" target="_blank" class="os-card">
-                    <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=200&fit=crop" class="os-card-image" alt="Cartilha de Segurança">
-                    <div class="os-card-content">
-                        <div class="os-card-header"><span class="os-card-icon">🛡️</span><span class="os-tag">Segurança</span></div>
-                        <h3>Cartilha de Segurança para Internet</h3>
-                        <p>Conjunto de documentos com recomendações e dicas sobre navegação segura na Internet, criado e mantido pelo CERT.br.</p>
-                        <div class="os-card-action">Acessar cartilha →</div>
                     </div>
                 </a>
             </div>
         </section>
 
-        <!-- SEÇÃO 2: PROGRAMAS DE CAPACITAÇÃO -->
+        <!-- SEÇÃO 02: PROGRAMAS DE CAPACITAÇÃO -->
         <section id="catalogos" class="os-section">
             <div class="os-section-header">
                 <h2><span class="os-badge">02</span> Programas de Capacitação</h2>
-                <p style="color: var(--color-text-muted);">Conheça os programas estruturados de capacitação corporativa da empresa para o ano vigente.</p>
+                <p>Conheça os programas estruturados de capacitação corporativa da empresa para o ano vigente.</p>
             </div>
             <div class="os-grid">
                 
@@ -338,7 +380,7 @@
             </div>
         </section>
 
-        <!-- SEÇÃO 3: DESENVOLVIMENTO ACADÊMICO E INOVAÇÃO -->
+        <!-- SEÇÃO 03: DESENVOLVIMENTO ACADÊMICO E INOVAÇÃO -->
         <section id="pesquisa" class="os-section">
             <div class="os-section-header">
                 <h2><span class="os-badge">03</span> Desenvolvimento Acadêmico e Inovação</h2>
@@ -401,7 +443,7 @@
             </div>
         </section>
 
-        <!-- SEÇÃO 4: GESTÃO DO CONHECIMENTO E GOVERNANÇA -->
+        <!-- SEÇÃO 04: GESTÃO DO CONHECIMENTO E GOVERNANÇA -->
         <section id="governanca" class="os-section">
             <div class="os-section-header">
                 <h2><span class="os-badge">04</span> Gestão do Conhecimento e Governança</h2>
@@ -465,7 +507,7 @@
             </div>
         </section>
 
-        <!-- SEÇÃO 5: AJUDA E AUTOATENDIMENTO -->
+        <!-- SEÇÃO 05: AJUDA E AUTOATENDIMENTO -->
         <section id="servicos" class="os-section">
             <div class="os-section-header">
                 <h2><span class="os-badge">05</span> Ajuda e Autoatendimento</h2>
@@ -531,7 +573,7 @@
 
     </main>
 
-    <!-- RODAPÉ NOVO -->
+    <!-- 📌 RODAPÉ DA PÁGINA COM MOLDURA SIMÉTRICA (GRADIENTE RESTAURADO) -->
     <footer class="os-footer">
         <div class="os-footer-content">
             <a href="#" class="os-footer-logo">
@@ -549,8 +591,9 @@
         </div>
     </footer>
 
+    <!-- ⚙️ SCRIPTS DE INTERAÇÃO -->
     <script>
-        // Função responsável por deslizar a tela suavemente até a seção desejada
+        // Função Javascript responsável por deslizar a tela suavemente até a seção quando o usuário clica no menu
         function scrollToSection(id) {
             const element = document.getElementById(id);
             if (element) {
@@ -558,7 +601,7 @@
             }
         }
 
-        // Lógica visual para acender as bolinhas da trilha conforme a rolagem do mouse
+        // Script visual para acender as bolinhas da trilha (Stepper) dinamicamente conforme a rolagem do mouse
         const sections = document.querySelectorAll('.os-section');
         window.addEventListener('scroll', () => {
             let current = '';
